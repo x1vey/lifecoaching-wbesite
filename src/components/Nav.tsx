@@ -1,48 +1,17 @@
 import { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/', anchor: null },
-  { label: 'About', href: '#about', anchor: null },
-  { label: 'Experiences', href: '#services', anchor: null },
-  { label: 'FAQs', href: '#faqs', anchor: null },
-  { label: 'Contact', href: '#contact', anchor: null },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Experiences', href: '/services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
-  const navigate = useNavigate()
-
-  const isHome = location.pathname === '/'
-
-  function handleNavClick(
-    e: React.MouseEvent<HTMLAnchorElement>,
-    _href: string,
-    anchor: string | null
-  ) {
-    if (anchor && isHome) {
-      e.preventDefault()
-      const el = document.querySelector(anchor)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-      }
-      setIsMenuOpen(false)
-      return
-    }
-    if (anchor && !isHome) {
-      // Navigate to home then scroll
-      e.preventDefault()
-      navigate('/')
-      setTimeout(() => {
-        const el = document.querySelector(anchor)
-        if (el) el.scrollIntoView({ behavior: 'smooth' })
-      }, 100)
-      setIsMenuOpen(false)
-      return
-    }
-    setIsMenuOpen(false)
-  }
 
   function isActive(href: string) {
     if (href === '/') return location.pathname === '/'
@@ -79,7 +48,7 @@ export default function Nav() {
                 <Link
                   to={href}
                   className={linkClass(href)}
-                  onClick={(e) => handleNavClick(e, '', null)}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {label}
                 </Link>
@@ -120,7 +89,7 @@ export default function Nav() {
                   <Link
                     to={href}
                     className={mobileLinkClass(href)}
-                    onClick={(e) => handleNavClick(e, '', null)}
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {label}
                   </Link>
