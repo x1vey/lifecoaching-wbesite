@@ -153,7 +153,7 @@ export default function ServicesPage() {
 
               {/* Floating Accent Image */}
               <img
-                src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?w=400&h=500&fit=crop"
+                src="https://images.unsplash.com/photo-1608681283626-44474f386921?w=400&h=500&fit=crop"
                 alt="Sound healing texture"
                 className={`svc-float absolute top-[12%] ${isEven ? 'left-[3%]' : 'right-[3%]'} w-[22vw] md:w-[13vw] aspect-[2/3] object-cover grayscale z-10 border border-white/20 shadow-2xl`}
               />

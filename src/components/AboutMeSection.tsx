@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const images = [
   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&fit=crop",
   "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&fit=crop",
-  "https://images.unsplash.com/photo-1593810450967-f9c42732e630?w=800&fit=crop"
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&fit=crop"
 ]
 
 export default function AboutMeSection() {

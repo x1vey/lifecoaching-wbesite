@@ -97,7 +97,7 @@ export default function HeroSection({
       {/* Floating Image 2 - Mid Left Overlap */}
       <img 
         ref={floatingImg2Ref}
-        src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?w=500&h=500&fit=crop"
+        src="https://images.unsplash.com/photo-1608681283626-44474f386921?w=500&h=500&fit=crop"
         alt="singing bowl close up"
         className="absolute bottom-[30%] left-[5%] w-[30vw] md:w-[20vw] aspect-square object-cover z-20 opacity-90 sepia-[0.3]"
       />
