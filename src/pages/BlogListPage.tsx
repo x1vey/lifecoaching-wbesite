@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import HeroSection from '../components/HeroSection'
-import ContactSection from '../components/ContactSection'
 import BlogCard from '../components/BlogCard'
 import { posts } from '../data/posts'
 
@@ -18,7 +17,7 @@ export default function BlogListPage() {
   const visiblePosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE)
 
   return (
-    <>
+    <div className="bg-brand-50 min-h-screen">
       <header>
         <HeroSection
           headline="Insights, stories, and mindful reflections."
@@ -89,9 +88,29 @@ export default function BlogListPage() {
         </div>
       </main>
 
-      <section id="contact">
-        <ContactSection />
+      {/* SUBSCRIBE CTA */}
+      <section className="bg-brand-900 text-brand-50 py-32 px-6">
+        <div className="max-w-2xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl md:text-5xl font-serif">Stay in the flow.</h2>
+          <p className="text-brand-300 text-lg">
+            Receive exclusive insights on sound healing, upcoming events, and mindful living directly to your inbox.
+          </p>
+          <form className="flex flex-col sm:flex-row gap-4 mt-8 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
+            <input 
+              type="email" 
+              placeholder="Your email address" 
+              required
+              className="flex-1 bg-transparent border-b border-brand-500 py-3 focus:outline-none focus:border-brand-50 transition-colors placeholder:text-brand-500"
+            />
+            <button 
+              type="submit"
+              className="px-8 py-3 bg-brand-50 text-brand-900 uppercase tracking-widest text-xs hover:bg-brand-200 transition-colors whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
       </section>
-    </>
+    </div>
   )
 }
