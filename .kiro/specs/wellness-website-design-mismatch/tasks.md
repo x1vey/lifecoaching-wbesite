@@ -1,0 +1,126 @@
+# Implementation Plan
+
+- [x] 1. Document visual styling bugs (BEFORE implementing fix)
+  - **Property 1: Bug Condition** - Visual Design Deviates from Reference Aesthetic
+  - **CRITICAL**: This documentation task MUST reveal styling bugs on unfixed code - findings confirm the bugs exist
+  - **DO NOT attempt to fix the styling when documenting issues**
+  - **NOTE**: This task establishes baseline counterexamples that will validate the fix when resolved
+  - **GOAL**: Surface concrete examples that demonstrate the styling bugs exist
+  - **Manual Inspection Approach**: Use browser DevTools to inspect computed styles and capture screenshots
+  - Inspect body and section backgrounds - document use of white (#ffffff) or stone-50 instead of cream (#faf8f5)
+  - Inspect heading and body text colors - document use of gray-900 or stone-800 instead of brand-900/brand-800
+  - Inspect Nav component styling - document shadow-sm, border-b-2, and bg-brand-50 hover states
+  - Inspect cards and components - document shadow-sm creating visual weight
+  - Inspect typography weights - document inconsistent or heavier weights than desired (>400 for headings)
+  - Measure spacing and gaps - document any inconsistencies in padding/margins
+  - Run the dev server and visually compare against reference site (https://www.emorasuara.com/)
+  - **EXPECTED OUTCOME**: Documentation reveals multiple styling deviations (this is correct - it proves the bugs exist)
+  - Document counterexamples found in comments or a temporary file to understand root cause
+  - Mark task complete when inspection is done and deviations are documented
+  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
+
+- [x] 2. Document existing functionality (BEFORE implementing fix)
+  - **Property 2: Preservation** - Functionality Remains Unchanged
+  - **IMPORTANT**: Follow observation-first methodology
+  - Test navigation on UNFIXED code - document that all routing and Link components work correctly
+  - Test forms on UNFIXED code - document that ContactForm validation and submission work correctly
+  - Test buttons on UNFIXED code - document that all CTA buttons trigger correct actions
+  - Test mobile menu on UNFIXED code - document that menu opens/closes correctly
+  - Test accessibility on UNFIXED code - document that keyboard navigation and ARIA labels work correctly
+  - Test responsive behavior on UNFIXED code - document that layouts adapt correctly at breakpoints
+  - Run existing test suite (npm test) on UNFIXED code - document that all tests pass
+  - **EXPECTED OUTCOME**: All functionality tests PASS (this confirms baseline behavior to preserve)
+  - Mark task complete when functionality is tested and documented as working on unfixed code
+  - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
+
+- [ ] 3. Fix visual design to match reference aesthetic
+
+  - [x] 3.1 Update global color scheme in src/index.css
+    - Change base background from `@apply bg-white` to `@apply bg-brand-50` for cream/beige default
+    - Change base text color from `@apply text-gray-900` to `@apply text-brand-900` for dark brown text
+    - Remove conflicting `@apply bg-stone-50 text-stone-800` if present
+    - Verify brand color palette is correctly defined in tailwind.config.js
+    - _Bug_Condition: isBugCondition(element) where element.backgroundColor IN ['#ffffff', '#fafaf9', 'white', 'stone-50']_
+    - _Expected_Behavior: All backgrounds use cream/beige (#faf8f5) and text uses dark brown (brand-900/brand-800)_
+    - _Preservation: All routing, forms, buttons, accessibility, and responsive behavior continue to work_
+    - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
+
+  - [x] 3.2 Simplify navigation styling in src/components/Nav.tsx
+    - Change header background from `bg-white shadow-sm` to `bg-brand-50` or `bg-transparent`
+    - Remove active state borders `border-b-2 border-brand-600` for minimal styling
+    - Simplify hover states - change `hover:bg-brand-50` to more subtle effects or remove
+    - Update text colors from `text-gray-700` to `text-brand-800` for consistency
+    - Remove or minimize shadows and borders to reduce visual weight
+    - _Bug_Condition: isBugCondition(element) where element has heavy shadows, borders, or complex active states_
+    - _Expected_Behavior: Navigation uses simple, minimal styling without heavy shadows or borders_
+    - _Preservation: All navigation clicks, routing, and scroll behavior continue to work_
+    - _Requirements: 1.5, 2.5, 3.1_
+
+  - [x] 3.3 Update section backgrounds and text colors
+    - Update AboutSection: change `bg-white` to `bg-brand-50`, update stone colors to brand colors
+    - Update ServicesSection: change `bg-stone-50` to `bg-brand-50`
+    - Update TestimonialsSection: change `bg-stone-50` to `bg-brand-50`
+    - Update BlogSection: change `bg-white` to `bg-brand-50` or keep white for alternating sections
+    - Update ContactSection: ensure `bg-brand-50` is used
+    - Update Footer: use brand colors instead of stone/gray
+    - For all sections: change `text-stone-900` to `text-brand-900`, `text-stone-700` to `text-brand-800`, `text-stone-600` to `text-brand-700`
+    - _Bug_Condition: isBugCondition(element) where element uses white/stone colors instead of brand colors_
+    - _Expected_Behavior: All sections use cream/beige backgrounds and dark brown text from brand palette_
+    - _Preservation: All content display and responsive layouts continue to work_
+    - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.5_
+
+  - [x] 3.4 Simplify component styling (cards and buttons)
+    - Update CoachingCard: remove or minimize shadows, update colors to brand palette, simplify borders
+    - Update BlogCard: remove or minimize shadows, update colors to brand palette, simplify styling
+    - Update TestimonialCard: remove or minimize shadows, update colors to brand palette, create clean minimal design
+    - Update button styling in AboutSection and BlogSection: change `border-stone-800 text-stone-800 hover:bg-stone-800` to use brand colors
+    - Update ContactForm: use minimal borders and brand colors for inputs and submit button
+    - Reduce image shadows where present (e.g., AboutSection image)
+    - _Bug_Condition: isBugCondition(element) where element has shadows, borders, or visual weight_
+    - _Expected_Behavior: Components have minimal or no borders/shadows, creating clean borderless design_
+    - _Preservation: All button clicks, form submissions, and interactive states continue to work_
+    - _Requirements: 1.6, 2.6, 3.2_
+
+  - [x] 3.5 Verify typography and spacing consistency
+    - Verify headings use `font-light` (300) consistently across all components
+    - Verify body text uses appropriate weights (300-400) for elegant appearance
+    - Verify generous spacing is maintained (py-24 for sections, gap-16 for grids, mb-20 for headings)
+    - Adjust any inconsistent spacing to match the generous whitespace aesthetic
+    - _Bug_Condition: isBugCondition(element) where element.fontWeight >= 500 or element.padding < expectedMinimalSpacing_
+    - _Expected_Behavior: Typography uses light weights (300-400) and spacing is generous throughout_
+    - _Preservation: All content remains readable and layouts remain functional_
+    - _Requirements: 1.3, 1.4, 2.3, 2.4, 3.5_
+
+  - [x] 3.6 Verify visual design matches reference aesthetic
+    - **Property 1: Expected Behavior** - Visual Design Matches Reference Aesthetic
+    - **IMPORTANT**: Re-run the SAME inspection from task 1 - do NOT create new inspection criteria
+    - The inspection from task 1 documents the expected behavior
+    - When this inspection passes, it confirms the expected behavior is satisfied
+    - Run dev server and visually compare against reference site (https://www.emorasuara.com/)
+    - Inspect backgrounds - verify cream/beige (#faf8f5 or brand-50) is used throughout
+    - Inspect text colors - verify dark brown (brand-900/brand-800) is used for proper contrast
+    - Inspect typography - verify light weights (300-400) create elegant aesthetic
+    - Inspect navigation - verify simple minimal styling without heavy shadows or borders
+    - Inspect components - verify minimal or no shadows/borders for clean aesthetic
+    - Inspect spacing - verify generous whitespace and centered layouts
+    - **EXPECTED OUTCOME**: Visual inspection PASSES (confirms bugs are fixed)
+    - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
+
+  - [x] 3.7 Verify functionality is preserved
+    - **Property 2: Preservation** - Functionality Remains Unchanged
+    - **IMPORTANT**: Re-run the SAME tests from task 2 - do NOT write new tests
+    - Run existing test suite (npm test) - verify all tests still pass
+    - Test navigation - verify all routing and Link components work correctly
+    - Test forms - verify ContactForm validation and submission work correctly
+    - Test buttons - verify all CTA buttons trigger correct actions
+    - Test mobile menu - verify menu opens/closes correctly
+    - Test accessibility - verify keyboard navigation and ARIA labels work correctly
+    - Test responsive behavior - verify layouts adapt correctly at breakpoints
+    - **EXPECTED OUTCOME**: All functionality tests PASS (confirms no regressions)
+    - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
+
+- [x] 4. Checkpoint - Ensure all styling is correct and functionality is preserved
+  - Verify visual design matches reference aesthetic across all pages
+  - Verify all existing tests pass
+  - Verify all interactive functionality works correctly
+  - Ask the user if questions arise or if additional refinements are needed
