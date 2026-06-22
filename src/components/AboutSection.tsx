@@ -95,7 +95,7 @@ export default function AboutSection({
         {/* Small Disconnected Floating Image */}
         <img
           ref={floatingPhotoRef}
-          src="https://images.unsplash.com/photo-1594818318854-46c5df3e51cd?w=400&h=600&fit=crop"
+          src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=600&fit=crop"
           alt="Texture detail"
           className="absolute top-[10%] left-[5%] w-[25vw] md:w-[15vw] aspect-[2/3] object-cover grayscale z-10 border border-[#3b3d32] shadow-2xl"
         />
