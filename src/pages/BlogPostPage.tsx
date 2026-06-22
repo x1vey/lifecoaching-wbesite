@@ -8,7 +8,7 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} | Wellness Coaching`
+      document.title = `${post.title} | Emora Suara`
     }
   }, [post])
 
@@ -23,50 +23,64 @@ export default function BlogPostPage() {
   })
 
   return (
-    <main className="flex-1 min-h-screen bg-gray-50 pt-24 pb-16 px-4">
-      <div className="max-w-3xl mx-auto">
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 text-brand-600 hover:text-brand-800 mb-8 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 rounded"
-        >
-          ← Back to Blog
-        </Link>
-
-        <article>
-          <header className="mb-8">
-            <h1 className="text-4xl font-serif font-bold text-gray-800 mb-4">{post.title}</h1>
-            <div className="flex items-center gap-4 text-gray-500 text-sm mb-6">
-              <span>By {post.author}</span>
-              <span>·</span>
-              <time dateTime={post.publishedAt}>{formattedDate}</time>
-            </div>
-            <img
-              src={post.coverImageUrl}
-              alt={post.coverImageAlt}
-              className="w-full rounded-xl object-cover max-h-96"
-              onError={(e) => {
-                ;(e.currentTarget as HTMLImageElement).src =
-                  'https://placehold.co/800x450?text=Image+not+available'
-              }}
-            />
-          </header>
-
-          <div className="prose prose-gray max-w-none">
-            <pre className="whitespace-pre-wrap font-sans text-gray-700 leading-relaxed text-base">
-              {post.content}
-            </pre>
-          </div>
-        </article>
-
-        <div className="mt-12 pt-8 border-t border-gray-200">
+    <div className="min-h-screen">
+      {/* Dark header band */}
+      <div className="bg-[#141512] pt-32 pb-20 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay" style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")'}} />
+        <div className="max-w-3xl mx-auto relative z-10">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-brand-600 hover:text-brand-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 rounded"
+            className="inline-flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-[#a3a393] hover:text-[#e0e0d5] transition-colors group mb-12 block"
           >
-            ← Back to Blog
+            <span className="w-8 h-[1px] bg-[#a3a393] group-hover:w-12 transition-all duration-300" />
+            Back to Journal
+          </Link>
+
+          <h1 className="font-serif text-4xl md:text-6xl text-[#e0e0d5] leading-tight mb-6 italic">{post.title}</h1>
+          <div className="flex items-center gap-4 text-[#a3a393] text-sm">
+            <span className="text-[10px] uppercase tracking-[0.3em]">{post.author}</span>
+            <span className="w-4 h-[1px] bg-[#3b3d32]" />
+            <time dateTime={post.publishedAt} className="text-[10px] uppercase tracking-[0.3em]">{formattedDate}</time>
+          </div>
+        </div>
+      </div>
+
+      {/* Cover image full bleed */}
+      <div className="w-full h-[50vh] overflow-hidden relative">
+        <img
+          src={post.coverImageUrl}
+          alt={post.coverImageAlt}
+          className="w-full h-full object-cover grayscale mix-blend-luminosity opacity-70"
+          onError={(e) => {
+            ;(e.currentTarget as HTMLImageElement).src =
+              'https://placehold.co/800x450?text=Image+not+available'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#22211f] via-transparent to-[#141512]/50" />
+      </div>
+
+      {/* Article body */}
+      <article className="bg-[#22211f] text-[#e0e0d5] py-20 px-6 relative">
+        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay" style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")'}} />
+        <div className="max-w-3xl mx-auto relative z-10">
+          <div className="font-light text-lg md:text-xl leading-[2] text-[#c2c2b8] whitespace-pre-wrap">
+            {post.content}
+          </div>
+        </div>
+      </article>
+
+      {/* Footer nav */}
+      <div className="bg-[#141512] py-16 px-6 border-t border-[#3b3d32]">
+        <div className="max-w-3xl mx-auto">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-[#a3a393] hover:text-[#e0e0d5] transition-colors group"
+          >
+            <span className="w-8 h-[1px] bg-[#a3a393] group-hover:w-12 transition-all duration-300" />
+            Back to Journal
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }
